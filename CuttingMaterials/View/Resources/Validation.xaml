@@ -1,0 +1,16 @@
+﻿<ResourceDictionary x:Class="CuttingMaterials.View.Resources.Validation" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CuttingMaterials.View.Resources">
+    <ControlTemplate x:Key="errTempalte">
+        <StackPanel>
+            <Border BorderBrush="Red" BorderThickness="1">
+                <AdornedElementPlaceholder/>
+            </Border>
+            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="12" Padding="0" Margin="0 -3 0 0"/>
+        </StackPanel>
+    </ControlTemplate>
+
+    <Style TargetType="TextBox">
+        <Setter Property="Validation.ErrorTemplate" Value="{StaticResource errTempalte}"/>
+    </Style>
+</ResourceDictionary>

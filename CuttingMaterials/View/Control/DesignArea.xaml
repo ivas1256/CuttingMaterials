@@ -1,0 +1,342 @@
+﻿<UserControl x:Class="CuttingMaterials.View.Control.DesignArea"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CuttingMaterials.View.Control"
+             mc:Ignorable="d"  Background="Transparent"
+             d:DesignHeight="1024" d:DesignWidth="1800"
+             Loaded="UserControl_Loaded"
+             KeyDown="canvas_KeyDown"
+             KeyUp="canvas_KeyUp"
+             x:Name="root">
+    <UserControl.Resources>
+        <Style x:Key="commentTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border BorderBrush="Black" BorderThickness="{TemplateBinding BorderThickness}"
+                                MinWidth="100">
+                            <TextBox Text="{TemplateBinding Text}" BorderThickness="0"
+                                                 Background="White"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="BorderThickness" Value="0 0 0 1"/>
+        </Style>
+
+        <Style x:Key="angleTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <DockPanel>
+                            <Path Data="M -1,0 A 1,1 0 1 1 1,0 M -1,0 A 1,1 0 1 0 1,0" 
+                                    Stroke="Black" StrokeThickness="1"
+                                    Stretch="Fill" Width="5" Height="5" Margin="1"
+                                    DockPanel.Dock="Right"
+                                    VerticalAlignment="Top"/>
+                            <Border BorderBrush="Black" 
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    MinWidth="10">
+                                <TextBox Text="{TemplateBinding Text}" BorderThickness="0"
+                                                             Background="Transparent"/>
+                            </Border>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Text" Value="0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="lengthTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Text" Value="0"/>
+            <Setter Property="MinWidth" Value="10"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="mainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5"
+                Width="40" HorizontalAlignment="Left" Background="White"
+                Margin="0" Panel.ZIndex="2"
+                Grid.RowSpan="2">
+            <StackPanel x:Name="stackPanel">
+                <ToggleButton x:Name="btn_line" Margin="5" Width="25" Height="25"
+                              Click="btn_line_Click"
+                              ToolTip="Нарисовать линию">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="BorderThickness" Value="0"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="LightGray" CornerRadius="5"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Path Data="M 10 -10 L 0 0" Stretch="Fill"
+                                              Stroke="Black" Margin="3"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+
+                <ToggleButton x:Name="btn_angle" Margin="5" Width="25" Height="25"
+                              Click="btn_angle_Click"
+                              ToolTip="Обозначить угол">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="BorderThickness" Value="0"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="LightGray" CornerRadius="5"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Path Data="M 10 0 L 0 10 L 10 10" Stretch="Fill"
+                                              Stroke="Black" Margin="3"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+
+                <ToggleButton x:Name="btn_comment" Margin="5" Width="25" Height="25"
+                              Click="btn_comment_Click"
+                              ToolTip="Комментарий к элементу">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="BorderThickness" Value="0"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="LightGray" CornerRadius="5"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Label Content="K" HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+
+                <ToggleButton x:Name="btn_delete" Margin="5" Width="25" Height="25"
+                              Click="btn_delete_Click"
+                              ToolTip="Удалить элемент">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="BorderThickness" Value="0"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="LightGray" CornerRadius="5"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Polygon xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Points="357,35.7 321.3,0 178.5,142.8 35.7,0 0,35.7 142.8,178.5 0,321.3 35.7,357 178.5,214.2 321.3,357 357,321.3     214.2,178.5   " 
+                                                     FillRule="NonZero" Fill="#000000" Stretch="Fill" Margin="5"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+
+                <ToggleButton x:Name="btn_lineLength" Margin="5" Width="25" Height="25"
+                              Click="btn_lineLength_Click"
+                              ToolTip="Обозначить длину линии">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="BorderThickness" Value="0"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="LightGray" CornerRadius="5"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Label Content="Д" HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+
+                <ToggleButton x:Name="btn_pencil" Margin="5" Width="25" Height="25"
+                              Click="btn_pencil_Click"
+                              ToolTip="Карандаш">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="BorderThickness" Value="0"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="LightGray" CornerRadius="5"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path2" Fill="#000000"
+                                                  Stretch="Fill" Margin="3">
+                                                <Path.Data>
+                                                    <PathGeometry Figures="M328.883 89.125l107.59 107.589l-272.34 272.34L56.604 361.465L328.883 89.125z M518.113 63.177l-47.981-47.981 
+                                                                  c-18.543-18.543-48.653-18.543-67.259 0l-45.961 45.961l107.59 107.59l53.611-53.611  
+                                                                  C532.495 100.753 532.495 77.559 518.113 63.177z M0.3 512.69c-1.958 8.812 5.998 16.708 14.811 14.565l119.891-29.069 
+                                                                  L27.473 390.597L0.3 512.69z" FillRule="NonZero"/>
+                                                </Path.Data>
+                                            </Path>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+
+                <ToggleButton x:Name="btn_text" Margin="5" Width="25" Height="25"
+                              Click="btn_text_Click"
+                              ToolTip="Вставить текст">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="BorderThickness" Value="0"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="LightGray" CornerRadius="5"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Label Content="T" HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" FontWeight="Bold" FontSize="16"
+                                                   Padding="0"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+            </StackPanel>
+        </Border>
+
+        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5"
+                HorizontalAlignment="Stretch" Background="White"
+                Margin="5 0" Panel.ZIndex="2"
+                Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <DockPanel>
+                    <Label Content="Толщина линии:" VerticalAlignment="Center"/>
+                    <TextBox Margin="5" Width="70" HorizontalAlignment="Left" 
+                             VerticalAlignment="Center"
+                             Text="{Binding LineWidth, UpdateSourceTrigger=PropertyChanged}"/>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label Content="Размер шрифта:" VerticalAlignment="Center"/>
+                    <TextBox Margin="5" Width="70" HorizontalAlignment="Left" 
+                             VerticalAlignment="Center"
+                             Text="{Binding TextFontSize, UpdateSourceTrigger=PropertyChanged}"/>
+                </DockPanel>
+            </StackPanel>
+        </Border>
+
+        <Canvas x:Name="canvas" Background="White" 
+                Grid.Column="1" Grid.Row="1"
+                
+                PreviewMouseMove="canvas_MouseMove"
+                MouseLeftButtonDown="canvas_MouseLeftButtonDown"
+                MouseLeftButtonUp="canvas_MouseLeftButtonUp"
+                PreviewKeyDown="canvas_KeyDown"
+                PreviewKeyUp="canvas_KeyUp"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,145 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CuttingMaterials.View.Resources.ButtonIcons">
+    <Viewbox x:Key="saveIcon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+        <Canvas Name="svg4630" Width="35.999" Height="36.005">
+            <Canvas.RenderTransform>
+                <TranslateTransform X="0" Y="0"/>
+            </Canvas.RenderTransform>
+            <Canvas.Resources/>
+            <!--Unknown tag: metadata-->
+            <!--Unknown tag: sodipodi:namedview-->
+            <Canvas Name="Save_Doc">
+                <Canvas Name="Layer_18">
+                    <Canvas Name="ClipView_15">
+                        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4567">
+                            <Path.Data>
+                                <PathGeometry Figures="M0 0v36.005h35.999V0H0z" FillRule="NonZero"/>
+                            </Path.Data>
+                        </Path>
+                        <Canvas Name="g4624">
+                            <Canvas.Resources>
+                                <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="35.999" Height="36.005" Name="SVGID_1_" Fill="#000000" x:Key="SVGID_1_"/>
+                            </Canvas.Resources>
+                            <Canvas Name="g4622">
+                                <Canvas.Resources>
+                                    <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="SVGID_4_" MappingMode="Absolute" StartPoint="199,-103" EndPoint="213,-103">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="#D6E6F6" Offset="0"/>
+                                                <GradientStop Color="#FFFFFF" Offset="1"/>
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                        <LinearGradientBrush.Transform>
+                                            <MatrixTransform Matrix="6.123234e-017 -1 1 6.123234e-017 121.002 219.366"/>
+                                        </LinearGradientBrush.Transform>
+                                    </LinearGradientBrush>
+                                    <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="SVGID_5_" MappingMode="Absolute" StartPoint="-248,-7" EndPoint="-233,-7">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="#FFFFFF" Offset="0"/>
+                                                <GradientStop Color="#BEC6D1" Offset="0.451"/>
+                                                <GradientStop Color="#FFFFFF" Offset="1"/>
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                        <LinearGradientBrush.Transform>
+                                            <MatrixTransform Matrix="0.7267 0.687 -0.6516 0.7601 189.718 198.8429"/>
+                                        </LinearGradientBrush.Transform>
+                                    </LinearGradientBrush>
+                                    <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="SVGID_6_" MappingMode="Absolute" StartPoint="-247,-10" EndPoint="-224,-10">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="#478DEC" Offset="0"/>
+                                                <GradientStop Color="#205DAF" Offset="1"/>
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                        <LinearGradientBrush.Transform>
+                                            <MatrixTransform Matrix="0.7401 0.6725 -0.6448 0.7653 185.1165 171.5588"/>
+                                        </LinearGradientBrush.Transform>
+                                    </LinearGradientBrush>
+                                </Canvas.Resources>
+                                <Canvas Name="Group_39">
+                                    <Canvas.Resources>
+                                        <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="SVGID_3_" MappingMode="Absolute" StartPoint="-152,-162" EndPoint="-152,-136">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStopCollection>
+                                                    <GradientStop Color="#73AEFF" Offset="0"/>
+                                                    <GradientStop Color="#478DEC" Offset="1"/>
+                                                </GradientStopCollection>
+                                            </LinearGradientBrush.GradientStops>
+                                            <LinearGradientBrush.Transform>
+                                                <MatrixTransform Matrix="1 0 0 1 170.252 163.962"/>
+                                            </LinearGradientBrush.Transform>
+                                        </LinearGradientBrush>
+                                    </Canvas.Resources>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4575" Fill="#FF205DAF">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M6.217 32.034l-2.249-2.25        c-0.141-0.141-0.219-0.332-0.219-0.531V4.5c0-0.413 0.336-0.75 0.75-0.75h27.003c0.413 0 0.75 0.337 0.75 0.75v27.003        c0 0.414-0.337 0.75-0.75 0.75H6.748C6.549 32.253 6.358 32.174 6.217 32.034z" FillRule="NonZero"/>
+                                        </Path.Data>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4582" Fill="{StaticResource SVGID_3_}">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M4.499 4.5v24.753l2.249 2.25h24.754V4.5H4.499z        " FillRule="NonZero"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4590" Fill="{StaticResource SVGID_4_}">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M8.248 4.504l0.003 13.844       c0 0.542 0.574 1.154 1.082 1.154h17.333c0.509 0 1.083-0.612 1.083-1.154L27.75 4.504H8.248z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4592" Fill="#FF205DAF">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M11.25 31.502V23.62c0-0.486 0.433-1.12 0.899-1.12       l13.031-0.001c0.501 0 1.07 0.593 1.07 1.121v7.882H11.25z M17.25 30.749v-6h-3v6H17.25z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4601" Fill="{StaticResource SVGID_5_}">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M10.5 31.505v-7.882       c0-0.486 0.433-1.12 0.899-1.12l13.031-0.001c0.501 0 1.07 0.593 1.07 1.121v7.882H10.5z M16.5 30.752v-6h-3v6H16.5z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4608" Fill="{StaticResource SVGID_6_}">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M8.25 4.501v2.251h19.501V4.501H8.25z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4610" Fill="#FF0C3670">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M5.249 5.252v1.496h1.5V5.252H5.249z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4612" Fill="#FF0C3670">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M29.25 5.256v1.496h1.5V5.256H29.25z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4614" Fill="#6F73AEFF">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M4.497 4.504v24.749l0.753 0.749       V4.504H4.497z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4616" Fill="#FF6F8199">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M10.498 31.502v0.751h15.001v-0.751H10.498z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4618" Fill="#3ADDEBFE">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M5.25 6.753v0.749h1.499V6.753H5.25       z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4620" Fill="#3ADDEBFE">
+                                    <Path.Data>
+                                        <PathGeometry Figures="M29.251 6.753v0.749h1.499V6.753       H29.251z" FillRule="NonZero"/>
+                                    </Path.Data>
+                                </Path>
+                            </Canvas>
+                        </Canvas>
+                    </Canvas>
+                </Canvas>
+            </Canvas>
+            <Canvas Name="Layer_1"/>
+        </Canvas>
+    </Viewbox>
+
+</ResourceDictionary>

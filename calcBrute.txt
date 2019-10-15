@@ -1,0 +1,230 @@
+List<int[]> combinationsForList;
+        Dictionary<int, int> detailAmountIndex = new Dictionary<int, int>();
+        public void CalculateBrute()
+        {
+            var debugStr = new StringBuilder();
+            var timer = new Stopwatch();
+            if (isDebug)
+                timer.Start();
+
+            var combinations = new Combinations(project);
+            combinations.FilterCombinations += Combinations_FilterCombinations;
+            combinations.FilterCombinationsForList += Combinations_FilterCombinationsForList;
+
+            var detailHeights = new List<int>();
+            detailAmountIndex = new Dictionary<int, int>();//detailHeight, amount
+
+            foreach (var detail in project.Details)
+            {
+                double height = 0;
+                foreach (var size in detail.Sizes)
+                    height += size.Value;
+
+                for (int i = 0; i < detail.Amount; i++)
+                    detailHeights.Add((int)height);
+
+                //todo здесь могут быть одинаковые размеры
+                detailAmountIndex.Add((int)height, detail.Amount);
+            }
+            if (isDebug)
+            {
+                debugStr.AppendLine($"Все детали ({detailHeights.Count}):");
+                debugStr.AppendLine(string.Join(",", detailHeights));
+            }
+
+            combinationsForList = combinations.GenerateCombinations(detailHeights);
+            combinationsForList = combinationsForList
+                .Where(x => x.Sum() <= project.BlankHeight)
+                .Select(x => string.Join(",", x))
+                .Distinct()
+                .Select(x => x.Split(',').Select(y => int.Parse(y)).ToArray())
+                .ToList();
+
+            Console.WriteLine(timer.Elapsed);
+            timer.Restart();
+
+            if (isDebug)
+            {
+                debugStr.AppendLine($"Вариантов размешения на одном листе: {combinationsForList.Count}");
+                //for (int i = 0; i < combinationsForList.Count; i++)
+                //    debugStr.AppendLine($"{i}) {string.Join(",", combinationsForList[i])} Остаток: {project.BlankHeight - combinationsForList[i].Sum()}");
+            }
+
+            var permutationsForListIds = new List<int>();
+            for (int i = 0; i < combinationsForList.Count; i++)
+                permutationsForListIds.Add(i);
+
+            var permutationsTotal = combinations.GenerateCombinations2(permutationsForListIds, detailHeights);
+
+            var minDiff = permutationsTotal.Select(x =>
+            {
+                var diff = new List<int>();
+                foreach (var comb in x)
+                {
+                    var combinationForList = combinationsForList[comb];
+                    diff.Add(project.BlankHeight - combinationForList.Sum());
+                }
+
+                return diff.Skip(1).Sum() / diff.Count;
+            }).ToList();
+
+            int id = minDiff.IndexOf(minDiff.Min());
+            Result = permutationsTotal[id].Select(x => combinationsForList[x]).ToList();
+            debugStr.AppendLine(string.Join(",", Result.Select(x => $"({string.Join(",", x)})")));
+
+            if (isDebug)
+            {
+                timer.Stop();
+
+                debugStr.AppendLine("Оптимальный раскрой:");
+                debugStr.AppendLine("В скобочках листы, цифрами детали");
+
+                debugStr.AppendLine($"{string.Join(",", permutationsTotal[id].Select(x => $"({string.Join(",", combinationsForList[x])})"))} Листов: {permutationsTotal[id].Count()}");
+
+
+                debugStr.AppendLine($"Вариантов раскроя: {permutationsTotal.Count}");
+                //for (int i = 0; i < permutationsTotal.Count; i++)
+                //{
+                //    var diff = new List<int>();
+                //    foreach (var perm in permutationsTotal[i])
+                //    {
+                //        var combinationForList = combinationsForList[perm];
+                //        diff.Add(project.BlankHeight - combinationForList.Sum());
+                //    }
+
+                //    debugStr.AppendLine($"{i}) {string.Join(",", permutationsTotal[i].Select(x => $"({string.Join(",", combinationsForList[x])})"))} Листов: {permutationsTotal[i].Count()} Остаток: {diff.Sum()} ({string.Join(",", diff)})");
+                //}
+
+                debugStr.AppendLine($"Time: {timer.Elapsed}");
+                DebugStatus = debugStr.ToString();
+            }
+        }
+
+        private List<int[]> Combinations_FilterCombinationsForList(List<int[]> combinations)
+        {
+            return combinations.Where(x => x.Sum() <= project.BlankHeight).ToList();
+        }
+
+        private List<int[]> Combinations_FilterCombinations(List<int[]> combinations)
+        {
+            return combinations.Where(x =>
+            {
+                var details = x.SelectMany(y => combinationsForList[y]).ToList();
+                foreach (var detailHeight in detailAmountIndex.Keys)
+                {
+                    var count = details.Where(y => y == detailHeight).Count();
+                    if (count != detailAmountIndex[detailHeight])
+                        return false;
+                }
+
+                return true;
+            }).ToList();
+        }
+		
+class Combinations
+    {
+        Project project;
+        public Combinations(Project project)
+        {
+            this.project = project;
+        }
+
+        public delegate List<int[]> FilterCombinationsEventHandler(List<int[]> combinations);
+        public event FilterCombinationsEventHandler FilterCombinations;
+        public event FilterCombinationsEventHandler FilterCombinationsForList;
+
+        /// <summary>
+        /// Сочетания без повторений
+        /// </summary>
+        public List<int[]> GenerateCombinations(List<int> elements)
+        {
+            var combinations = new List<int[]>();
+            int[] arr = null;
+            for (int m = 1; m <= elements.Count; m++)
+            {
+                var res = new List<int[]>();
+                while ((arr = GenerateCombinations(arr, elements.Count, m)) != null)
+                    res.Add(arr.Select(x => elements[x - 1]).ToArray());
+
+                //res = FilterCombinationsForList(res);
+                //if (res.Count == 0)
+                //    break;
+
+                combinations.AddRange(res);
+            }
+
+            return combinations;
+        }
+        int[] GenerateCombinations(int[] arr, int n, int m)
+        {
+            if (arr == null)
+            {
+                arr = new int[m];
+                for (int i = 0; i < m; i++)
+                    arr[i] = i + 1;
+                return arr;
+            }
+            for (int i = m - 1; i >= 0; i--)
+                if (arr[i] < n - m + i + 1)
+                {
+                    arr[i]++;
+                    for (int j = i; j < m - 1; j++)
+                        arr[j + 1] = arr[j] + 1;
+                    return arr;
+                }
+            return null;
+        }
+
+        /// <summary>
+        /// Сочетания с повторениями
+        /// </summary>
+        /// <param name="elements">Список объектов для генерации комбинаций</param>
+        /// <param name="detailHeights">Список высот всех деталей</param>
+        public List<int[]> GenerateCombinations2(List<int> elements, List<int> detailHeights)
+        {
+            var combinations = new List<int[]>();
+
+            var minLists = (int)Math.Ceiling((double)(detailHeights.Sum() / project.BlankHeight));//минимальное кол-во листов
+
+            for (int m = minLists; m <= project.Details.Select(x => x.Amount).Max(); m++)
+            {
+                elementIds = new int[Math.Max(elements.Count, m)];
+                for (int i = 0; i < Math.Max(elements.Count, m); i++)
+                    elementIds[i] = 1;
+
+                combinations.Add(GetComb(m).Select(x => elements[x - 1]).ToArray());
+                while (NextComb(elements.Count, m))
+                {
+                    combinations.Add(GetComb(m).Select(x => elements[x - 1]).ToArray());
+                }
+                //удалаяем те, где кол-во деталей не соответствует нужному
+                combinations = FilterCombinations(combinations);
+            }
+
+            return combinations;
+        }
+
+        int[] elementIds;
+        bool NextComb(int n, int m)
+        {
+            int j = m - 1;
+            while (j >= 0 && elementIds[j] == n)
+                j--;
+            if (j < 0)
+                return false;
+            if (elementIds[j] >= n)
+                j--;
+            elementIds[j]++;
+            if (j == m - 1)
+                return true;
+            for (int k = j + 1; k < m; k++)
+                elementIds[k] = elementIds[j];
+            return true;
+        }
+
+        IEnumerable<int> GetComb(int n)
+        {
+            for (int i = 0; i < n; i++)
+                yield return elementIds[i];
+        }
+    }

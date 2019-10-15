@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="30e47d60a3a541a1984c531c7fc1ea3e" Name="Diagram1">
+        <EntityTypeShape EntityType="dataModel.Coating" Width="1.5" PointX="4.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.Project" Width="1.5" PointX="2.625" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.Template" Width="1.5" PointX="3.25" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="dataModel.FK_project_0_0" />
+        <EntityTypeShape EntityType="dataModel.Detail" Width="1.5" PointX="5.875" PointY="3.75" />
+        <AssociationConnector Association="dataModel.FK_detail_0_0" />
+        <AssociationConnector Association="dataModel.FK_detail_1_0" />
+        <EntityTypeShape EntityType="dataModel.DetailSize" Width="1.5" PointX="8.5" PointY="3.75" />
+        <EntityTypeShape EntityType="dataModel.TemplateSize" Width="1.5" PointX="0.875" PointY="1.25" />
+        <AssociationConnector Association="dataModel.FK_detail_size_0_0" />
+        <AssociationConnector Association="dataModel.FK_template_size_0_0" />
+        <EntityTypeShape EntityType="dataModel.DefaultDetail" Width="1.5" PointX="7.75" PointY="1" />
+        <EntityTypeShape EntityType="dataModel.Offcut" Width="1.5" PointX="0.5" PointY="4.25" />
+        <AssociationConnector Association="dataModel.FK_offcut_0_0" />
+        <EntityTypeShape EntityType="dataModel.Node" Width="1.5" PointX="7.75" PointY="6" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

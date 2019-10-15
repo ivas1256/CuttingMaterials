@@ -1,0 +1,65 @@
+﻿<Window x:Class="CuttingMaterials.View.Windows.Editors.TemplateEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CuttingMaterials.View.Windows.Editors"
+        xmlns:controls="clr-namespace:CuttingMaterials.View.Control"
+        mc:Ignorable="d" x:Name="root"
+        Title="Создание нового шаблона" Width="900" Height="650"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        KeyDown="TemplateEditWindow_KeyDown">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="330"/>
+        </Grid.ColumnDefinitions>
+
+        <controls:DesignArea x:Name="designArea" Grid.Row="1"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Название:" HorizontalAlignment="Right"/>
+            <Label Content="Файл:" Grid.Row="1" HorizontalAlignment="Right"/>
+
+            <TextBox Margin="5" Grid.Column="1" Text="{Binding Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <DockPanel Grid.Column="1" Grid.Row="1">
+                <Button Content="Изменить" x:Name="btn_browse" Margin="5"
+                    DockPanel.Dock="Right" Click="btn_browse_Click"/>
+                <TextBox x:Name="tb_file" Margin="5" Text="{Binding ImageFileName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                         TextChanged="TextBox_TextChanged"/>
+            </DockPanel>
+        </Grid>
+
+        <TabControl Grid.Column="1" Grid.RowSpan="2" Margin="5">
+            <TabItem Header="Стандартные размеры">
+                <controls:TemplateSizesList x:Name="templateSizesList" />
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button x:Name="btn_ok" Content="Сохранить" Margin="5"
+                    Width="70" Click="btn_ok_Click"/>
+            <Button x:Name="btn_cancel" Content="Отмена" Margin="5"
+                    Width="70" Click="btn_cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

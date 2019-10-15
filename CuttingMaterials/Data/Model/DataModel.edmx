@@ -1,0 +1,537 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dataModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=&quot;D:\Work Projects\CuttingMaterials\CuttingMaterials\bin\Debug\data.db&quot;" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="coating">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="comment" Type="varchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="default_detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="size" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="project_id" Type="integer" Nullable="false" />
+          <Property Name="template_id" Type="integer" />
+          <Property Name="amount" Type="integer" Nullable="false" />
+          <Property Name="xaml" Type="varchar" MaxLength="2147483647" />
+          <Property Name="preview_file" Type="varchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="detail_size">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="value" Type="integer" Nullable="false" />
+          <Property Name="detail_id" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="node">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="offcut">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="size" Type="varchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="project_id" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="project">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="blank_size" Type="varchar" MaxLength="2147483647" />
+          <Property Name="blank_thickness" Type="real" />
+          <Property Name="coating_id" Type="integer" />
+          <Property Name="coating_color" Type="varchar" MaxLength="2147483647" />
+          <Property Name="customer_fio" Type="varchar" MaxLength="2147483647" />
+          <Property Name="order_number" Type="varchar" MaxLength="2147483647" />
+          <Property Name="start_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="template">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="file" Type="varchar" MaxLength="2147483647" />
+          <Property Name="xaml" Type="varchar" MaxLength="2147483647" />
+          <Property Name="preview_file" Type="varchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="template_size">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="value" Type="integer" Nullable="false" />
+          <Property Name="template_id" Type="integer" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_detail_0_0">
+          <End Role="template" Type="Self.template" Multiplicity="0..1" />
+          <End Role="detail" Type="Self.detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="template">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detail">
+              <PropertyRef Name="template_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detail_1_0">
+          <End Role="project" Type="Self.project" Multiplicity="1" />
+          <End Role="detail" Type="Self.detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detail">
+              <PropertyRef Name="project_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detail_size_0_0">
+          <End Role="detail" Type="Self.detail" Multiplicity="1" />
+          <End Role="detail_size" Type="Self.detail_size" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="detail">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detail_size">
+              <PropertyRef Name="detail_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_offcut_0_0">
+          <End Role="project" Type="Self.project" Multiplicity="1" />
+          <End Role="offcut" Type="Self.offcut" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="offcut">
+              <PropertyRef Name="project_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_project_0_0">
+          <End Role="coating" Type="Self.coating" Multiplicity="0..1" />
+          <End Role="project" Type="Self.project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coating">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="project">
+              <PropertyRef Name="coating_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_template_size_0_0">
+          <End Role="template" Type="Self.template" Multiplicity="1" />
+          <End Role="template_size" Type="Self.template_size" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="template">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="template_size">
+              <PropertyRef Name="template_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dataModelStoreContainer">
+          <EntitySet Name="coating" EntityType="Self.coating" store:Type="Tables" />
+          <EntitySet Name="default_detail" EntityType="Self.default_detail" store:Type="Tables" />
+          <EntitySet Name="detail" EntityType="Self.detail" store:Type="Tables" />
+          <EntitySet Name="detail_size" EntityType="Self.detail_size" store:Type="Tables" />
+          <EntitySet Name="node" EntityType="Self.node" store:Type="Tables" />
+          <EntitySet Name="offcut" EntityType="Self.offcut" store:Type="Tables" />
+          <EntitySet Name="project" EntityType="Self.project" store:Type="Tables" />
+          <EntitySet Name="template" EntityType="Self.template" store:Type="Tables" />
+          <EntitySet Name="template_size" EntityType="Self.template_size" store:Type="Tables" />
+          <AssociationSet Name="FK_detail_0_0" Association="Self.FK_detail_0_0">
+            <End Role="template" EntitySet="template" />
+            <End Role="detail" EntitySet="detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detail_1_0" Association="Self.FK_detail_1_0">
+            <End Role="project" EntitySet="project" />
+            <End Role="detail" EntitySet="detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detail_size_0_0" Association="Self.FK_detail_size_0_0">
+            <End Role="detail" EntitySet="detail" />
+            <End Role="detail_size" EntitySet="detail_size" />
+          </AssociationSet>
+          <AssociationSet Name="FK_offcut_0_0" Association="Self.FK_offcut_0_0">
+            <End Role="project" EntitySet="project" />
+            <End Role="offcut" EntitySet="offcut" />
+          </AssociationSet>
+          <AssociationSet Name="FK_project_0_0" Association="Self.FK_project_0_0">
+            <End Role="coating" EntitySet="coating" />
+            <End Role="project" EntitySet="project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_template_size_0_0" Association="Self.FK_template_size_0_0">
+            <End Role="template" EntitySet="template" />
+            <End Role="template_size" EntitySet="template_size" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Coating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Project" Relationship="dataModel.FK_project_0_0" FromRole="coating" ToRole="project" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BlankSize" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" Nullable="true" />
+          <Property Name="BlankThickness" Type="Double" Nullable="true" />
+          <Property Name="CoatingId" Type="Int32" Nullable="true" />
+          <Property Name="CoatingColor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" Nullable="true" />
+          <Property Name="CustomerFio" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" Nullable="true" />
+          <Property Name="OrderNumber" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" Nullable="true" />
+          <Property Name="StartDate" Type="DateTime" Nullable="true" />
+          <Property Name="EndDate" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="Coating" Relationship="dataModel.FK_project_0_0" FromRole="project" ToRole="coating" />
+          <NavigationProperty Name="Details" Relationship="dataModel.FK_detail_1_0" FromRole="Project" ToRole="detail" />
+          <NavigationProperty Name="offcut" Relationship="dataModel.FK_offcut_0_0" FromRole="Project" ToRole="offcut" />
+        </EntityType>
+        <EntityType Name="Template">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImageFileName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Details" Relationship="dataModel.FK_detail_0_0" FromRole="Template" ToRole="detail" />
+          <NavigationProperty Name="Sizes" Relationship="dataModel.FK_template_size_0_0" FromRole="Template" ToRole="template_size" />
+          <Property Name="Xaml" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <Property Name="XamlPreviewImageFile" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="DataContext" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="Coating" EntityType="dataModel.Coating" />
+          <EntitySet Name="Project" EntityType="dataModel.Project" />
+          <EntitySet Name="Template" EntityType="dataModel.Template" />
+          <AssociationSet Name="FK_project_0_0" Association="dataModel.FK_project_0_0">
+            <End Role="coating" EntitySet="Coating" />
+            <End Role="project" EntitySet="Project" />
+          </AssociationSet>
+          <EntitySet Name="Detail" EntityType="dataModel.Detail" />
+          <AssociationSet Name="FK_detail_0_0" Association="dataModel.FK_detail_0_0">
+            <End Role="Template" EntitySet="Template" />
+            <End Role="detail" EntitySet="Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detail_1_0" Association="dataModel.FK_detail_1_0">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="detail" EntitySet="Detail" />
+          </AssociationSet>
+          <EntitySet Name="DetailSize" EntityType="dataModel.DetailSize" />
+          <EntitySet Name="TemplateSize" EntityType="dataModel.TemplateSize" />
+          <AssociationSet Name="FK_detail_size_0_0" Association="dataModel.FK_detail_size_0_0">
+            <End Role="Detail" EntitySet="Detail" />
+            <End Role="detail_size" EntitySet="DetailSize" />
+          </AssociationSet>
+          <AssociationSet Name="FK_template_size_0_0" Association="dataModel.FK_template_size_0_0">
+            <End Role="Template" EntitySet="Template" />
+            <End Role="template_size" EntitySet="TemplateSize" />
+          </AssociationSet>
+          <EntitySet Name="default_detail" EntityType="dataModel.DefaultDetail" />
+          <EntitySet Name="Offcut" EntityType="dataModel.Offcut" />
+          <AssociationSet Name="FK_offcut_0_0" Association="dataModel.FK_offcut_0_0">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="offcut" EntitySet="Offcut" />
+          </AssociationSet>
+          <EntitySet Name="Node" EntityType="dataModel.Node" />
+        </EntityContainer>
+        <Association Name="FK_project_0_0">
+          <End Type="dataModel.Coating" Role="coating" Multiplicity="0..1" />
+          <End Type="dataModel.Project" Role="project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coating">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="project">
+              <PropertyRef Name="CoatingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Detail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="TemplateId" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Template" Relationship="dataModel.FK_detail_0_0" FromRole="detail" ToRole="Template" />
+          <NavigationProperty Name="Project" Relationship="dataModel.FK_detail_1_0" FromRole="detail" ToRole="Project" />
+          <NavigationProperty Name="Sizes" Relationship="dataModel.FK_detail_size_0_0" FromRole="Detail" ToRole="detail_size" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="Xaml" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <Property Name="PreviewFile" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_detail_0_0">
+          <End Type="dataModel.Template" Role="Template" Multiplicity="0..1" />
+          <End Type="dataModel.Detail" Role="detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="detail">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detail_1_0">
+          <End Type="dataModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="dataModel.Detail" Role="detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="detail">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DetailSize">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="DetailId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Detail" Relationship="dataModel.FK_detail_size_0_0" FromRole="detail_size" ToRole="Detail" />
+        </EntityType>
+        <EntityType Name="TemplateSize">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="TemplateId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Template" Relationship="dataModel.FK_template_size_0_0" FromRole="template_size" ToRole="Template" />
+        </EntityType>
+        <Association Name="FK_detail_size_0_0">
+          <End Type="dataModel.Detail" Role="Detail" Multiplicity="1" />
+          <End Type="dataModel.DetailSize" Role="detail_size" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="detail_size">
+              <PropertyRef Name="DetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_template_size_0_0">
+          <End Type="dataModel.Template" Role="Template" Multiplicity="1" />
+          <End Type="dataModel.TemplateSize" Role="template_size" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="template_size">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DefaultDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <Property Name="Size" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Offcut">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Size" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="dataModel.FK_offcut_0_0" FromRole="offcut" ToRole="Project" />
+        </EntityType>
+        <Association Name="FK_offcut_0_0">
+          <End Type="dataModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="dataModel.Offcut" Role="offcut" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="offcut">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Node">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dataModelStoreContainer" CdmEntityContainer="DataContext">
+          <EntitySetMapping Name="Coating">
+            <EntityTypeMapping TypeName="dataModel.Coating">
+              <MappingFragment StoreEntitySet="coating">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="Comment" ColumnName="comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project">
+            <EntityTypeMapping TypeName="dataModel.Project">
+              <MappingFragment StoreEntitySet="project">
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="BlankSize" ColumnName="blank_size" />
+                <ScalarProperty Name="BlankThickness" ColumnName="blank_thickness" />
+                <ScalarProperty Name="CoatingId" ColumnName="coating_id" />
+                <ScalarProperty Name="CoatingColor" ColumnName="coating_color" />
+                <ScalarProperty Name="CustomerFio" ColumnName="customer_fio" />
+                <ScalarProperty Name="OrderNumber" ColumnName="order_number" />
+                <ScalarProperty Name="StartDate" ColumnName="start_date" />
+                <ScalarProperty Name="EndDate" ColumnName="end_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Template">
+            <EntityTypeMapping TypeName="dataModel.Template">
+              <MappingFragment StoreEntitySet="template">
+                <ScalarProperty Name="XamlPreviewImageFile" ColumnName="preview_file" />
+                <ScalarProperty Name="Xaml" ColumnName="xaml" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="ImageFileName" ColumnName="file" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Detail">
+            <EntityTypeMapping TypeName="dataModel.Detail">
+              <MappingFragment StoreEntitySet="detail">
+                <ScalarProperty Name="PreviewFile" ColumnName="preview_file" />
+                <ScalarProperty Name="Xaml" ColumnName="xaml" />
+                <ScalarProperty Name="Amount" ColumnName="amount" />
+                <ScalarProperty Name="TemplateId" ColumnName="template_id" />
+                <ScalarProperty Name="ProjectId" ColumnName="project_id" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailSize">
+            <EntityTypeMapping TypeName="dataModel.DetailSize">
+              <MappingFragment StoreEntitySet="detail_size">
+                <ScalarProperty Name="DetailId" ColumnName="detail_id" />
+                <ScalarProperty Name="Value" ColumnName="value" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateSize">
+            <EntityTypeMapping TypeName="dataModel.TemplateSize">
+              <MappingFragment StoreEntitySet="template_size">
+                <ScalarProperty Name="TemplateId" ColumnName="template_id" />
+                <ScalarProperty Name="Value" ColumnName="value" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="default_detail">
+            <EntityTypeMapping TypeName="dataModel.DefaultDetail">
+              <MappingFragment StoreEntitySet="default_detail">
+                <ScalarProperty Name="Size" ColumnName="size" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Offcut">
+            <EntityTypeMapping TypeName="dataModel.Offcut">
+              <MappingFragment StoreEntitySet="offcut">
+                <ScalarProperty Name="ProjectId" ColumnName="project_id" />
+                <ScalarProperty Name="Size" ColumnName="size" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Node">
+            <EntityTypeMapping TypeName="dataModel.Node">
+              <MappingFragment StoreEntitySet="node">
+                <ScalarProperty Name="Value" ColumnName="value" />
+                <ScalarProperty Name="Name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

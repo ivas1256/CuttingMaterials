@@ -1,0 +1,152 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              PageHeight="29.7cm"
+              PageWidth="20.9cm"
+              PagePadding="1.27cm" ColumnWidth="789">
+  <FlowDocument.Resources>
+    <Style TargetType="TextBlock">
+      <Setter Property="FontFamily" Value="Tahoma"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+  </FlowDocument.Resources>
+  <BlockUIContainer>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition/>
+      </Grid.RowDefinitions>
+
+      <TextBlock Text="Заявка" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+      <TextBlock Text="на изготовление фасонных изделий" FontSize="14" Grid.Row="1" HorizontalAlignment="Center"/>
+
+      <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <Label Content="ФИО заказчика:"/>
+        <Label>{{ CustomerFio }}</Label>
+
+        <Label Content="№ заказа покупателя:" Margin="20 0 0 0"/>
+        <Label Content="{{ OrderNumber }}"/>
+      </StackPanel>
+
+      <StackPanel Grid.Row="3" Orientation="Horizontal">
+        <Label Content="Дата отправки в производство:"/>
+        <Label Content="{{ StartDate }}"/>
+
+        <Label Content="Дата готовности изделия:" Margin="20 0 0 0"/>
+        <Label Content="{{ EndDate }}"/>
+      </StackPanel>
+    </Grid>
+  </BlockUIContainer>
+
+  {% for detail in Details -%}
+  <BlockUIContainer>
+    <Grid Margin="0 15 0 0">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" MaxHeight="25"/>
+        <RowDefinition Height="auto" MaxHeight="25"/>
+        <RowDefinition Height="auto" MaxHeight="25"/>
+        <RowDefinition Height="auto" MaxHeight="25"/>
+        <RowDefinition Height="auto" MaxHeight="40"/>
+        <RowDefinition Height="auto" MaxHeight="40"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="0.5*"/>
+        <ColumnDefinition Width="0.5*"/>
+      </Grid.ColumnDefinitions>
+      <Grid.Resources>
+        <Style TargetType="Border">
+          <Setter Property="BorderThickness" Value="1"/>
+          <Setter Property="BorderBrush" Value="Black"/>
+        </Style>
+        <Style TargetType="TextBlock">
+          <Setter Property="Margin" Value="3"/>
+          <Setter Property="FontSize" Value="13"/>
+          <Setter Property="TextWrapping" Value="Wrap"/>
+          <Setter Property="FontFamily" Value="Tahoma"/>
+        </Style>
+      </Grid.Resources>
+
+      <Border BorderThickness="1 1 0 1">
+        <TextBlock Text="Фасонное изделие № {{ detail.Index }}" HorizontalAlignment="Center"/>
+      </Border>
+      <Border Grid.Column="1" BorderThickness="1 1 1 1">
+        <TextBlock Text="Вид покрытия"/>
+      </Border>
+      <Border Grid.Column="2" BorderThickness="0 1 1 1">
+        <TextBlock Text="{{ Coating }}-{{ CoatingColor }}-{{ BlankThickness }}"/>
+      </Border>
+
+      <Border Grid.Row="1" Grid.Column="1" BorderThickness="1 0 1 1">
+        <TextBlock Text="Развертка, мм"/>
+      </Border>
+      <Border Grid.Row="1" Grid.Column="2" BorderThickness="0 0 1 1">
+        <TextBlock Text="{{ detail.Width }}"/>
+      </Border>
+
+      <Border Grid.Row="2" Grid.Column="1" BorderThickness="1 0 1 1">
+        <TextBlock Text="Длина изделия, м"/>
+      </Border>
+      <Border Grid.Row="2" Grid.Column="2" BorderThickness="0 0 1 1">
+        <TextBlock Text="{{ Length }}"/>
+      </Border>
+
+      <Border Grid.Row="3" Grid.Column="1" BorderThickness="1 0 1 1">
+        <TextBlock Text="Количество, шт"/>
+      </Border>
+      <Border Grid.Row="3" Grid.Column="2" BorderThickness="0 0 1 1">
+        <TextBlock Text="{{ detail.Amount }}"/>
+      </Border>
+
+      <Border Grid.Row="4" Grid.Column="1" BorderThickness="1 0 1 1">
+        <TextBlock Text="Количество листов для изготовления, шт"/>
+      </Border>
+      <Border Grid.Row="4" Grid.Column="2" BorderThickness="0 0 1 1">
+        <TextBlock Text="{{ detail.ListsToDo }}"/>
+      </Border>
+
+      <Border Grid.Row="5" Grid.Column="1" BorderThickness="1 0 1 1">
+        <TextBlock Text="Факт. Израс. количество листов, шт"/>
+      </Border>
+      <Border Grid.Row="5" Grid.Column="2" BorderThickness="0 0 1 1">
+        <TextBlock Text="{{ FactListsForDo }}"/>
+      </Border>
+
+      <Border Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1 0 1 1">
+        <StackPanel>
+          <TextBlock Text="Примечание, мм"/>
+          <TextBlock Text="{{ detail.Name }} {{ detail.SizesListNoName }} ({{ Coating }}-{{ CoatingColor }}-{{ BlankThickness }})"/>
+        </StackPanel>
+      </Border>
+
+
+      <Border Grid.Row="1" Grid.RowSpan="6" BorderThickness="1 0 0 1">
+        <Image Source="{{ detail.ImageFileName }}" Margin="3"/>
+      </Border>
+
+      <Border Grid.Row="7" Grid.ColumnSpan="3" BorderThickness="1 0 1 1">
+        <StackPanel>
+          <TextBlock Text="Размеры"/>
+          <TextBlock Text="{{ detail.SizesListWithName }}"/>
+        </StackPanel>
+      </Border>
+    </Grid>
+  </BlockUIContainer>
+  {% endfor -%}
+
+  <BlockUIContainer>
+    <TextBlock Text="Раскрой" Margin="10" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+  </BlockUIContainer>
+
+  {% for file in CuttingFiles -%}
+  <BlockUIContainer>
+    <Image Source="{{ file }}" Margin="5"/>
+  </BlockUIContainer>
+  {% endfor -%}  
+</FlowDocument>

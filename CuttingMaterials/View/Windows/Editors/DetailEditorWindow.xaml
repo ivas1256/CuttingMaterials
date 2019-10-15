@@ -1,0 +1,43 @@
+﻿<Window x:Class="CuttingMaterials.View.Windows.Editors.DetailEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CuttingMaterials.View.Windows.Editors"
+        mc:Ignorable="d"
+        Title="Создать деталь" Width="400" WindowStartupLocation="CenterScreen"
+        SizeToContent="Height" Loaded="Window_Loaded"
+        KeyDown="DetailEditorWindow_KeyDown">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.27*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Название:" HorizontalAlignment="Right"/>
+        <Label Content="Количество:" Grid.Row="1" HorizontalAlignment="Right"/>
+        <Label Content="Шаблон:" Grid.Row="2" HorizontalAlignment="Right"/>
+
+        <TextBox Margin="5" Grid.Column="1" Text="{Binding Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Margin="5" Grid.Column="1" Text="{Binding Amount, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="1"/>
+        <ComboBox x:Name="cb_Templates" Grid.Row="2" Grid.Column="1" Margin="5"
+                  SelectedValuePath="Id" DisplayMemberPath="Name" SelectedIndex="0"
+                  SelectedValue="{Binding TemplateId, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                  SelectionChanged="cb_Templates_SelectionChanged"/>
+
+        <StackPanel Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button x:Name="btn_ok" Content="Сохранить" Margin="5"
+                    Width="70" Click="btn_ok_Click"/>
+            <Button x:Name="btn_cancel" Content="Отмена" Margin="5"
+                    Width="70" Click="btn_cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
