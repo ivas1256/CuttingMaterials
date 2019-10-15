@@ -71,7 +71,10 @@ namespace CuttingMaterials.Logic
         private void CalculateExisting(List<int[]> oldCutting, List<int> newDetails)
         {
             Result = new List<int[]>(oldCutting);
+            for (int i = 0; i < length; i++)
+            {
 
+            }
         }
 
         private void CalculateNew(List<int> newDetails)
